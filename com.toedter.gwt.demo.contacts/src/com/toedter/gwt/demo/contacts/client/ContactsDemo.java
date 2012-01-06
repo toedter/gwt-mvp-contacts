@@ -54,12 +54,13 @@ public class ContactsDemo implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-		// northPanel.setStyleName("redBackground");
-		// westPanel.setStyleName("yellowBackground");
+		northPanel.setStyleName("darkGreyBackground");
+		westPanel.setStyleName("greyBackground");
 		centerPanel.setStyleName("greyBackground");
 
-		splitLayoutPanel.addWest(westPanel, 225);
+		splitLayoutPanel.addWest(westPanel, 223);
 		splitLayoutPanel.add(centerPanel);
+		splitLayoutPanel.setStyleName("gwt-SplitLayoutPanel");
 
 		northPanel.add(new ToolBar());
 		dockLayoutPanel.addNorth(northPanel, 4.5);
