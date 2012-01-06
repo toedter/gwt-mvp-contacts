@@ -14,9 +14,9 @@ package com.toedter.gwt.demo.contacts.client.activity;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.toedter.gwt.demo.contacts.client.IClientFactory;
+import com.toedter.gwt.demo.contacts.client.place.ContactEditPlace;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IToolBarView;
 import com.toedter.gwt.demo.contacts.client.ui.IToolBarView.Presenter;
@@ -33,6 +33,12 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 		this.clientFactory = clientFactory;
 	}
 
+	public ToolBarActivity(ContactEditPlace place, IClientFactory clientFactory) {
+		System.out.println("ContactListActivity.ContactListActivity(): " + place.getToken());
+		token = place.getToken();
+		this.clientFactory = clientFactory;
+	}
+
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		System.out.println("ToolBarActivity.start()");
@@ -43,12 +49,14 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 	}
 
 	@Override
-	public void goTo(Place place) {
+	public void addContact() {
+		clientFactory.getPlaceController().goTo(new ContactEditPlace(null));
 	}
 
 	@Override
 	public void save() {
 		System.out.println("ToolBarActivity.save(): Not implemented yet");
+		clientFactory.getPlaceController().goTo(new ContactPlace(null));
 	}
 
 }

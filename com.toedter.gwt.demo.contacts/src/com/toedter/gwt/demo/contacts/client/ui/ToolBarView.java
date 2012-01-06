@@ -44,6 +44,14 @@ public class ToolBarView extends Composite implements IToolBarView {
 				presenter.save();
 			}
 		});
+
+		addContactButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				presenter.addContact();
+			}
+		});
 	}
 
 	@Override

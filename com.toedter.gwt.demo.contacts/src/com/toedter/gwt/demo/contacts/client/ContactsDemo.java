@@ -33,7 +33,6 @@ import com.toedter.gwt.demo.contacts.client.mvp.CenterActivityMapper;
 import com.toedter.gwt.demo.contacts.client.mvp.NorthActivityMapper;
 import com.toedter.gwt.demo.contacts.client.mvp.WestActivityMapper;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
-import com.toedter.gwt.demo.contacts.client.ui.ToolBarView;
 
 public class ContactsDemo implements EntryPoint {
 	private final Place defaultPlace = new ContactPlace(null);
@@ -54,9 +53,16 @@ public class ContactsDemo implements EntryPoint {
 	};
 
 	AcceptsOneWidget westDisplay = new AcceptsOneWidget() {
+		double oldSize = 223.0; // TODO store real size dynamically
+
 		@Override
 		public void setWidget(IsWidget activityWidget) {
 			Widget widget = Widget.asWidgetOrNull(activityWidget);
+			if (widget == null) {
+				splitLayoutPanel.setWidgetSize(westPanel, 0);
+			} else {
+				splitLayoutPanel.setWidgetSize(westPanel, oldSize);
+			}
 			westPanel.setVisible(widget != null);
 			westPanel.setWidget(widget);
 		}
@@ -81,7 +87,6 @@ public class ContactsDemo implements EntryPoint {
 		splitLayoutPanel.add(centerPanel);
 		splitLayoutPanel.setStyleName("gwt-SplitLayoutPanel");
 
-		northPanel.add(new ToolBarView());
 		dockLayoutPanel.addNorth(northPanel, 4.5);
 		dockLayoutPanel.add(splitLayoutPanel);
 
@@ -115,6 +120,7 @@ public class ContactsDemo implements EntryPoint {
 		historyHandler.register(placeController, eventBus, defaultPlace);
 
 		RootLayoutPanel.get().add(dockLayoutPanel);
+
 		// Goes to place represented on URL or default place
 		historyHandler.handleCurrentHistory();
 	}

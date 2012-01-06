@@ -15,11 +15,11 @@ package com.toedter.gwt.demo.contacts.client.place;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
-public class ContactDetailsPlace extends Place {
+public class ContactEditPlace extends Place {
 
 	private final String token;
 
-	public ContactDetailsPlace(String token) {
+	public ContactEditPlace(String token) {
 		this.token = token;
 	}
 
@@ -27,16 +27,16 @@ public class ContactDetailsPlace extends Place {
 		return token;
 	}
 
-	public static class Tokenizer implements PlaceTokenizer<ContactDetailsPlace> {
+	public static class Tokenizer implements PlaceTokenizer<ContactEditPlace> {
 
 		@Override
-		public String getToken(ContactDetailsPlace place) {
+		public String getToken(ContactEditPlace place) {
 			return place.getToken();
 		}
 
 		@Override
-		public ContactDetailsPlace getPlace(String token) {
-			return new ContactDetailsPlace(token);
+		public ContactEditPlace getPlace(String token) {
+			return new ContactEditPlace(token);
 		}
 
 	}

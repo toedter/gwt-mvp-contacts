@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.toedter.gwt.demo.contacts.client.IClientFactory;
 import com.toedter.gwt.demo.contacts.client.IContactServiceAsync;
 import com.toedter.gwt.demo.contacts.client.event.ContactViewEvent;
+import com.toedter.gwt.demo.contacts.client.place.ContactEditPlace;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.shared.Contact;
@@ -32,6 +33,12 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 	private final String token;
 
 	public ContactDetailsActivity(ContactPlace place, IClientFactory clientFactory) {
+		this.clientFactory = clientFactory;
+		token = place.getToken();
+		System.out.println("ContactDetailsActivity.ContactDetailsActivity() token: " + token);
+	}
+
+	public ContactDetailsActivity(ContactEditPlace place, IClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 		token = place.getToken();
 		System.out.println("ContactDetailsActivity.ContactDetailsActivity() token: " + token);

@@ -5,6 +5,7 @@ import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
 import com.toedter.gwt.demo.contacts.client.IClientFactory;
 import com.toedter.gwt.demo.contacts.client.activity.ContactDetailsActivity;
+import com.toedter.gwt.demo.contacts.client.place.ContactEditPlace;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 
 public class CenterActivityMapper implements ActivityMapper {
@@ -21,6 +22,8 @@ public class CenterActivityMapper implements ActivityMapper {
 		System.out.println("CenterActivityMapper.getActivity(): " + place);
 		if (place instanceof ContactPlace) {
 			return new ContactDetailsActivity((ContactPlace) place, clientFactory);
+		} else if (place instanceof ContactEditPlace) {
+			return new ContactDetailsActivity((ContactEditPlace) place, clientFactory);
 		}
 
 		return null;

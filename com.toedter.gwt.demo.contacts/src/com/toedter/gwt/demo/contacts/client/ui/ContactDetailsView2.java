@@ -100,6 +100,10 @@ public class ContactDetailsView2 implements IContactDetailsView {
 
 	@Override
 	public void setContact(Contact contact) {
+		if (contact == null) {
+			return;
+		}
+
 		titleText.setText(contact.getTitle());
 		nameText.setText(contact.getFirstName() + " " + contact.getLastName());
 		companyText.setText(contact.getCompany());
