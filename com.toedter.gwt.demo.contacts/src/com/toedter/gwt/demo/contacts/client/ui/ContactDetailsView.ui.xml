@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.panel {
+			background-color: #f0f0f0;
+		}
+	</ui:style>
+
+	<g:FlowPanel styleName="{style.panel}">
+		<g:Grid  ui:field="grid" width="95%"  borderWidth="0">
+			<g:row>
+				<g:customCell>
+					<g:Label text="General"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Name:" horizontalAlignment="ALIGN_RIGHT"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox width="100%" ui:field="nameText"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label horizontalAlignment="ALIGN_RIGHT" text="Company:"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox  width="100%" ui:field="companyText"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Job Title:" horizontalAlignment="ALIGN_RIGHT"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox width="100%"  ui:field="jobTitleText"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label width="100%" text="Business Address"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Street:" horizontalAlignment="ALIGN_RIGHT"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox width="100%" ui:field="streetText"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label horizontalAlignment="ALIGN_RIGHT" text="City:"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox width="100%" ui:field="cityText"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Zip:" horizontalAlignment="ALIGN_RIGHT"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox width="100%"  ui:field="zipText"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Country:" horizontalAlignment="ALIGN_RIGHT"/>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox width="100%" ui:field="countryText"/>
+				</g:customCell>
+			</g:row>
+		</g:Grid>
+	</g:FlowPanel>
+</ui:UiBinder>

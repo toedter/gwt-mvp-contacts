@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.panel {
+			background-color: ivory;
+		}
+	</ui:style>
+
+	<ui:with field='res'
+		type='com.toedter.gwt.demo.contacts.client.ui.Resources' />
+
+	<g:HorizontalPanel styleName="{style.panel}">
+		<g:PushButton ui:field="saveButton">
+			<g:upFace image='{res.save}' />
+		</g:PushButton>
+		<g:PushButton ui:field="addContactButton">
+			<g:upFace image='{res.addContact}' />
+		</g:PushButton>
+		<g:PushButton ui:field="deleteContactButton">
+			<g:upFace image='{res.deleteContact}' />
+		</g:PushButton>
+	</g:HorizontalPanel>
+</ui:UiBinder>
