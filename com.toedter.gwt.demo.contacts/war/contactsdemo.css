@@ -12,5 +12,6 @@
 }
 
 .greyBackground  {
+	background-image: -webkit-radial-gradient(50% 50%, circle closest-corner, #ededed, #cdcdcd);
 	background-color: #ededed;
 }
