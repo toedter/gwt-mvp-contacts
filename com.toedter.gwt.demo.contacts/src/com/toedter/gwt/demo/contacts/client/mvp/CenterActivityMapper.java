@@ -19,7 +19,6 @@ public class CenterActivityMapper implements ActivityMapper {
 
 	@Override
 	public Activity getActivity(Place place) {
-		System.out.println("CenterActivityMapper.getActivity(): " + place);
 		if (place instanceof ContactPlace) {
 			return new ContactDetailsActivity((ContactPlace) place, clientFactory);
 		} else if (place instanceof ContactEditPlace) {

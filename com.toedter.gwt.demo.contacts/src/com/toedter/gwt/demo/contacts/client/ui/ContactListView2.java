@@ -124,11 +124,10 @@ public class ContactListView2 extends Composite implements IContactListView {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				Contact selectedContact = selectionModel.getSelectedObject();
+				System.out.println("ContactListView2 .onSelectionChange()");
 				presenter.select(selectedContact);
 			}
 		});
-
-		System.out.println("STYLE: " + CellTable.Style.DEFAULT_CSS);
 	}
 
 	@Override

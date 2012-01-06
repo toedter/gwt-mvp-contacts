@@ -31,18 +31,19 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 	private final String token;
 	private EventBus eventBus;
 	private static List<Contact> contacts;
+	private IContactListView contactListView;
 
 	public ContactListActivity(ContactPlace place, IClientFactory clientFactory) {
-		System.out.println("ContactListActivity.ContactListActivity(): " + place.getToken());
+		System.out.println("ContactListActivity.ContactListActivity()");
 		token = place.getToken();
 		this.clientFactory = clientFactory;
 	}
 
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
+		System.out.println("ContactListActivity.start()");
 		this.eventBus = eventBus;
-		System.out.println("ContactListActivity.start(): " + clientFactory.getEventBus() + ":" + eventBus);
-		final IContactListView contactListView = clientFactory.getContactListView();
+		contactListView = clientFactory.getContactListView();
 		contactListView.setPresenter(this);
 		containerWidget.setWidget(contactListView.asWidget());
 
@@ -53,7 +54,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 
 				@Override
 				public void onSuccess(List<Contact> result) {
-					System.out.println("Time: " + (System.currentTimeMillis() - startTime));
+					System.out.println("Time for RPC: " + (System.currentTimeMillis() - startTime));
 					contacts = result;
 					contactListView.initialize(result);
 					if (token != null) {
@@ -64,10 +65,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 							contactListView.selectInitialRow(index);
 						}
 
-						Contact contact = getContact(token);
-						if (contact != null) {
-							contactListView.selectInitialContact(contact);
-						}
+						selectInitialContact(token);
 					}
 				}
 
@@ -77,8 +75,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 				}
 			});
 		} else if (token != null) {
-			Contact contact = getContact(token);
-			contactListView.selectInitialContact(contact);
+			selectInitialContact(token);
 		}
 	}
 
@@ -87,10 +84,21 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 		clientFactory.getPlaceController().goTo(place);
 	}
 
+	public void selectInitialContact(String email) {
+		Contact contact = getContact(email);
+		if (contact != null) {
+			contactListView.selectInitialContact(contact);
+			eventBus.fireEvent(new ContactViewEvent(contact));
+		}
+	}
+
 	@Override
 	public void select(Contact contact) {
-		// eventBus.fireEvent(new ContactViewEvent(contact));
-		goTo(new ContactPlace(contact.getEmail()));
+		System.out.println("ContactListActivity.select(): " + token + ":" + contact.getEmail());
+		eventBus.fireEvent(new ContactViewEvent(contact));
+		if (token != null && !token.equals(contact.getEmail())) {
+			goTo(new ContactPlace(contact.getEmail()));
+		}
 	}
 
 	@Override

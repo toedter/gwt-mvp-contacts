@@ -19,7 +19,6 @@ public class NorthActivityMapper implements ActivityMapper {
 
 	@Override
 	public Activity getActivity(Place place) {
-		System.out.println("NorthActivityMapper.getActivity(): " + place);
 		if (place instanceof ContactPlace) {
 			return new ToolBarActivity((ContactPlace) place, clientFactory);
 		} else if (place instanceof ContactEditPlace) {

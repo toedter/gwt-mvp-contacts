@@ -15,15 +15,12 @@ package com.toedter.gwt.demo.contacts.client.activity;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.toedter.gwt.demo.contacts.client.IClientFactory;
-import com.toedter.gwt.demo.contacts.client.IContactServiceAsync;
 import com.toedter.gwt.demo.contacts.client.event.ContactViewEvent;
 import com.toedter.gwt.demo.contacts.client.place.ContactEditPlace;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
-import com.toedter.gwt.demo.contacts.shared.Contact;
 
 public class ContactDetailsActivity extends AbstractActivity implements IContactDetailsView.Presenter {
 
@@ -46,7 +43,7 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-		System.out.println("ContactDetailsActivity.start(): " + clientFactory.getEventBus() + ":" + eventBus);
+		System.out.println("ContactDetailsActivity.start()");
 		final IContactDetailsView contactDetailsView = clientFactory.getContactDetailsView();
 		this.eventBus = eventBus;
 
@@ -55,30 +52,13 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 
 			@Override
 			public void onContactView(ContactViewEvent event) {
-				System.out.println("ContactDetailsActivity onContactView(): " + event.getContact());
+				System.out.println("ContactDetailsActivity onContactView()");
 				contactDetailsView.setContact(event.getContact());
 			}
 		};
 		this.eventBus.addHandler(ContactViewEvent.TYPE, handler);
 
 		containerWidget.setWidget(contactDetailsView.asWidget());
-
-		if (token != null) {
-			IContactServiceAsync contactService = clientFactory.getContactService();
-			contactService.getContact(token, new AsyncCallback<Contact>() {
-
-				@Override
-				public void onSuccess(Contact result) {
-					contactDetailsView.setContact(result);
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					System.err.println("Error in getting contacts form contact service");
-				}
-			});
-		}
-
 	}
 
 	// @Override
@@ -91,6 +71,7 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 	 */
 	@Override
 	public void goTo(Place place) {
+		System.out.println("ContactDetailsActivity.goTo()");
 		clientFactory.getPlaceController().goTo(place);
 	}
 }

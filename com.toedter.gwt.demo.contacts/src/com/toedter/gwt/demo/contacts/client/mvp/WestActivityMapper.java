@@ -18,7 +18,6 @@ public class WestActivityMapper implements ActivityMapper {
 
 	@Override
 	public Activity getActivity(Place place) {
-		System.out.println("WestActivityMapper.getActivity(): " + place);
 		if (place instanceof ContactPlace) {
 			return new ContactListActivity((ContactPlace) place, clientFactory);
 		}

@@ -28,13 +28,13 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 	private final IClientFactory clientFactory;
 
 	public ToolBarActivity(ContactPlace place, IClientFactory clientFactory) {
-		System.out.println("ContactListActivity.ContactListActivity(): " + place.getToken());
+		System.out.println("ToolBarActivity.ToolBarActivity(): " + place.getToken());
 		token = place.getToken();
 		this.clientFactory = clientFactory;
 	}
 
 	public ToolBarActivity(ContactEditPlace place, IClientFactory clientFactory) {
-		System.out.println("ContactListActivity.ContactListActivity(): " + place.getToken());
+		System.out.println("ToolBarActivity.ToolBarActivity(): " + place.getToken());
 		token = place.getToken();
 		this.clientFactory = clientFactory;
 	}
