@@ -30,6 +30,7 @@ public class ContactDetailsView2 implements IContactDetailsView {
 		Resources resources = GWT.create(Resources.class);
 		colSpan = 2;
 		flexTable = new FlexTable();
+		flexTable.setStyleName("greyBackground");
 		flexTable.setWidget(1, 4, new Image(resources.fiveXfive()));
 		flexTable.getFlexCellFormatter().setWidth(1, 4, "5px");
 		flexTable.setWidget(1, 6, new Image(resources.fiveXfive()));
@@ -39,6 +40,8 @@ public class ContactDetailsView2 implements IContactDetailsView {
 
 		flexTable.setWidget(1, 5, image);
 		flexTable.getFlexCellFormatter().setRowSpan(1, 5, 4);
+		flexTable.getFlexCellFormatter().setVerticalAlignment(1, 5,
+				HasVerticalAlignment.ALIGN_TOP);
 
 		createSeparator("General");
 		titleText = createTextBox("Title:");
