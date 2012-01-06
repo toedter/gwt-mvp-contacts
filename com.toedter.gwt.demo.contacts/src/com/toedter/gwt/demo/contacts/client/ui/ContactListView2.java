@@ -7,7 +7,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.CellTable.Resources;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -22,7 +24,7 @@ public class ContactListView2 extends Composite implements IContactListView {
 	private static ContactListView2UiBinder uiBinder = GWT.create(ContactListView2UiBinder.class);
 
 	@UiField(provided = true)
-	CellTable<Contact> cellTable = new CellTable<Contact>();
+	CellTable<Contact> cellTable = new CellTable<Contact>(10, (Resources) GWT.create(TableResources.class));
 
 	private List<Contact> list;
 
@@ -33,6 +35,8 @@ public class ContactListView2 extends Composite implements IContactListView {
 
 	public ContactListView2() {
 		initWidget(uiBinder.createAndBindUi(this));
+
+		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
 		// Create first name column.
 		TextColumn<Contact> firstNameColumn = new TextColumn<Contact>() {
@@ -112,6 +116,7 @@ public class ContactListView2 extends Composite implements IContactListView {
 			}
 		});
 
+		System.out.println("STYLE: " + CellTable.Style.DEFAULT_CSS);
 	}
 
 	@Override

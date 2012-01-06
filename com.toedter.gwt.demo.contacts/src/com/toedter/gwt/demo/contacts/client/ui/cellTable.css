@@ -1,0 +1,8 @@
+.cellTableCell {
+  white-space: nowrap;
+}
+
+.cellTableSelectedRowCell {
+  border: selectionBorderWidth solid transparent;
+}
+

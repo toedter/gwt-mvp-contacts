@@ -15,3 +15,27 @@
 	background-image: -webkit-radial-gradient(50% 50%, circle closest-corner, #ededed, #cdcdcd);
 	background-color: #ededed;
 }
+
+.cellTableSelectedRowCell {
+  border: selectionBorderWidth solid blue;
+}
+
+.cellTableKeyboardSelectedRowCell {
+  border: selectionBorderWidth solid blue;
+}
+
+.cellTableKeyboardSelectedCell {
+  border: selectionBorderWidth solid black;
+}
+
+.cellTableEvenRowCell {
+  border: selectionBorderWidth solid yellow;
+}
+
+.cellTableOddRow {
+  background: #f3f7fb;
+}
+
+.cellTableOddRowCell {
+  border: selectionBorderWidth solid blue;
+}
