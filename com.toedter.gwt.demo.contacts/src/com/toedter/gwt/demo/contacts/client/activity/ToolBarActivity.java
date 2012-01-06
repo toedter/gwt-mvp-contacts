@@ -1,0 +1,54 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Kai Toedter and others.
+ * 
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
+ * 
+ * Contributors:
+ *     Kai Toedter - initial API and implementation
+ ******************************************************************************/
+
+package com.toedter.gwt.demo.contacts.client.activity;
+
+import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.toedter.gwt.demo.contacts.client.IClientFactory;
+import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
+import com.toedter.gwt.demo.contacts.client.ui.IToolBarView;
+import com.toedter.gwt.demo.contacts.client.ui.IToolBarView.Presenter;
+
+public class ToolBarActivity extends AbstractActivity implements Presenter {
+
+	private EventBus eventBus;
+	private final String token;
+	private final IClientFactory clientFactory;
+
+	public ToolBarActivity(ContactPlace place, IClientFactory clientFactory) {
+		System.out.println("ContactListActivity.ContactListActivity(): " + place.getToken());
+		token = place.getToken();
+		this.clientFactory = clientFactory;
+	}
+
+	@Override
+	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
+		System.out.println("ToolBarActivity.start()");
+		this.eventBus = eventBus;
+		final IToolBarView toolBarView = clientFactory.getToolBarView();
+		toolBarView.setPresenter(this);
+		containerWidget.setWidget(toolBarView.asWidget());
+	}
+
+	@Override
+	public void goTo(Place place) {
+	}
+
+	@Override
+	public void save() {
+		System.out.println("ToolBarActivity.save(): Not implemented yet");
+	}
+
+}

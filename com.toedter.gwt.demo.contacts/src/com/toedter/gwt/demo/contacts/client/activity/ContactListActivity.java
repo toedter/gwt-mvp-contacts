@@ -42,7 +42,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		this.eventBus = eventBus;
 		System.out.println("ContactListActivity.start(): " + clientFactory.getEventBus() + ":" + eventBus);
-		final IContactListView contactListView = clientFactory.getMainView();
+		final IContactListView contactListView = clientFactory.getContactListView();
 		contactListView.setPresenter(this);
 		containerWidget.setWidget(contactListView.asWidget());
 

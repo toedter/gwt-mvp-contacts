@@ -28,7 +28,7 @@ public interface IContactListView extends IsWidget, AcceptsOneWidget {
 		void select(Contact contact);
 	}
 
-	void setPresenter(Presenter listener);
+	void setPresenter(Presenter presenter);
 
 	void selectInitialRow(int i);
 

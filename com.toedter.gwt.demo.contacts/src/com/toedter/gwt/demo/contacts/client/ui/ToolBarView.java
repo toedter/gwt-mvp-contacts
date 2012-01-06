@@ -13,25 +13,46 @@
 package com.toedter.gwt.demo.contacts.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ToolBar extends Composite {
+public class ToolBarView extends Composite implements IToolBarView {
 
 	private static final Binder binder = GWT.create(Binder.class);
 	@UiField
 	PushButton saveButton;
 	@UiField
 	PushButton addContactButton;
+	private Presenter presenter;
 
-	interface Binder extends UiBinder<Widget, ToolBar> {
+	interface Binder extends UiBinder<Widget, ToolBarView> {
 	}
 
-	public ToolBar() {
+	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));
+
+		saveButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				presenter.save();
+			}
+		});
+	}
+
+	@Override
+	public void setWidget(IsWidget w) {
+	}
+
+	@Override
+	public void setPresenter(Presenter presenter) {
+		this.presenter = presenter;
 	}
 
 }

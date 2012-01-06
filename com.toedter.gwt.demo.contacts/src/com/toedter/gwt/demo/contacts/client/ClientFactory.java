@@ -20,6 +20,8 @@ import com.toedter.gwt.demo.contacts.client.ui.ContactDetailsView2;
 import com.toedter.gwt.demo.contacts.client.ui.ContactListView2;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
+import com.toedter.gwt.demo.contacts.client.ui.IToolBarView;
+import com.toedter.gwt.demo.contacts.client.ui.ToolBarView;
 
 public class ClientFactory implements IClientFactory {
 	private static final EventBus eventBus = new SimpleEventBus();
@@ -33,6 +35,8 @@ public class ClientFactory implements IClientFactory {
 	// ContactDetailsView();
 	private static final IContactDetailsView contactDetailsView = new ContactDetailsView2();
 
+	private static final IToolBarView toolBarView = new ToolBarView();
+
 	private final IContactServiceAsync contactService = GWT.create(IContactService.class);
 
 	@Override
@@ -41,18 +45,23 @@ public class ClientFactory implements IClientFactory {
 	}
 
 	@Override
-	public IContactListView getMainView() {
-		return contactListView;
+	public IToolBarView getToolBarView() {
+		return toolBarView;
 	}
 
 	@Override
-	public PlaceController getPlaceController() {
-		return placeController;
+	public IContactListView getContactListView() {
+		return contactListView;
 	}
 
 	@Override
 	public IContactDetailsView getContactDetailsView() {
 		return contactDetailsView;
+	}
+
+	@Override
+	public PlaceController getPlaceController() {
+		return placeController;
 	}
 
 	@Override

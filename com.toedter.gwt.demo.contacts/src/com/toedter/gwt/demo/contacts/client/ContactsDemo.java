@@ -30,9 +30,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
 import com.toedter.gwt.demo.contacts.client.mvp.AppPlaceHistoryMapper;
 import com.toedter.gwt.demo.contacts.client.mvp.CenterActivityMapper;
+import com.toedter.gwt.demo.contacts.client.mvp.NorthActivityMapper;
 import com.toedter.gwt.demo.contacts.client.mvp.WestActivityMapper;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
-import com.toedter.gwt.demo.contacts.client.ui.ToolBar;
+import com.toedter.gwt.demo.contacts.client.ui.ToolBarView;
 
 public class ContactsDemo implements EntryPoint {
 	private final Place defaultPlace = new ContactPlace(null);
@@ -42,6 +43,15 @@ public class ContactsDemo implements EntryPoint {
 	private final SimplePanel centerPanel = new SimplePanel();
 	private final SimplePanel westPanel = new SimplePanel();
 	private final SimplePanel northPanel = new SimplePanel();
+
+	AcceptsOneWidget northDisplay = new AcceptsOneWidget() {
+		@Override
+		public void setWidget(IsWidget activityWidget) {
+			Widget widget = Widget.asWidgetOrNull(activityWidget);
+			northPanel.setVisible(widget != null);
+			northPanel.setWidget(widget);
+		}
+	};
 
 	AcceptsOneWidget westDisplay = new AcceptsOneWidget() {
 		@Override
@@ -71,7 +81,7 @@ public class ContactsDemo implements EntryPoint {
 		splitLayoutPanel.add(centerPanel);
 		splitLayoutPanel.setStyleName("gwt-SplitLayoutPanel");
 
-		northPanel.add(new ToolBar());
+		northPanel.add(new ToolBarView());
 		dockLayoutPanel.addNorth(northPanel, 4.5);
 		dockLayoutPanel.add(splitLayoutPanel);
 
@@ -80,6 +90,12 @@ public class ContactsDemo implements EntryPoint {
 		IClientFactory clientFactory = GWT.create(IClientFactory.class);
 		EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
+
+		// Start NorthActivityManager for the north widget with the
+		// NorthActivityMapper
+		ActivityMapper northActivityMapper = new NorthActivityMapper(clientFactory);
+		ActivityManager northActivityManager = new ActivityManager(northActivityMapper, eventBus);
+		northActivityManager.setDisplay(northDisplay);
 
 		// Start CenterActivityManager for the center widget with the
 		// CenterActivityMapper

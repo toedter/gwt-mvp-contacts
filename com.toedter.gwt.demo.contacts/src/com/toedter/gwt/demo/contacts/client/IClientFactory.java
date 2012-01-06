@@ -16,15 +16,18 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
+import com.toedter.gwt.demo.contacts.client.ui.IToolBarView;
 
 public interface IClientFactory {
 	EventBus getEventBus();
 
 	PlaceController getPlaceController();
 
-	IContactListView getMainView();
+	IContactListView getContactListView();
 
 	IContactDetailsView getContactDetailsView();
+
+	IToolBarView getToolBarView();
 
 	IContactServiceAsync getContactService();
 }

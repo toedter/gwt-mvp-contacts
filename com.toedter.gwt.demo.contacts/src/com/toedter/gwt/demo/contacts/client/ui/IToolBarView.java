@@ -13,16 +13,15 @@
 package com.toedter.gwt.demo.contacts.client.ui;
 
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.toedter.gwt.demo.contacts.shared.Contact;
 
-public interface IContactDetailsView extends IsWidget {
-
-	void setContact(Contact contact);
-
-	void setPresenter(Presenter presenter);
-
+public interface IToolBarView extends IsWidget, AcceptsOneWidget {
 	public interface Presenter {
 		void goTo(Place place);
+
+		void save();
 	}
+
+	void setPresenter(Presenter presenter);
 }
