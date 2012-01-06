@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Siemens AG and others.
+ * Copyright (c) 2012 Kai Toedter and others.
  * 
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
  * Contributors:
- *     Kai Tödter - initial implementation
+ *     Kai Toedter - initial API and implementation
  ******************************************************************************/
 
 package com.toedter.gwt.demo.contacts.shared;
@@ -17,24 +17,23 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Contact implements Serializable {
 
-	private String sourceFile = null;
-	private String firstName = ""; //$NON-NLS-1$
-	private String middleName = ""; //$NON-NLS-1$
-	private String lastName = ""; //$NON-NLS-1$
-	private String title = ""; //$NON-NLS-1$
-	private String company = ""; //$NON-NLS-1$
-	private String jobTitle = ""; //$NON-NLS-1$
-	private String street = ""; //$NON-NLS-1$
-	private String city = ""; //$NON-NLS-1$
-	private String zip = ""; //$NON-NLS-1$
-	private String state = ""; //$NON-NLS-1$
-	private String country = ""; //$NON-NLS-1$
-	private String email = ""; //$NON-NLS-1$
-	private String webPage = ""; //$NON-NLS-1$
-	private String phone = ""; //$NON-NLS-1$
-	private String mobile = ""; //$NON-NLS-1$
-	private String note = ""; //$NON-NLS-1$
-	private String jpegString = ""; //$NON-NLS-1$
+	private String firstName = "";
+	private String middleName = "";
+	private String lastName = "";
+	private String title = "";
+	private String company = "";
+	private String jobTitle = "";
+	private String street = "";
+	private String city = "";
+	private String zip = "";
+	private String state = "";
+	private String country = "";
+	private String email = "";
+	private String webPage = "";
+	private String phone = "";
+	private String mobile = "";
+	private String note = "";
+	private String jpegString = "";
 
 	public Contact() {
 	}
@@ -43,14 +42,6 @@ public class Contact implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-	}
-
-	public void setSourceFile(String sourceFile) {
-		this.sourceFile = sourceFile;
-	}
-
-	public String getSourceFile() {
-		return sourceFile;
 	}
 
 	public String getFirstName() {

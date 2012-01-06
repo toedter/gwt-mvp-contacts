@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Kai Toedter and others.
+ * 
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
+ * 
+ * Contributors:
+ *     Kai Toedter - initial API and implementation
+ ******************************************************************************/
+
 package com.toedter.gwt.demo.contacts.server;
 
 import java.util.List;
@@ -8,16 +20,7 @@ public class ContactManager {
 	private final List<Contact> contacts;
 
 	public ContactManager() {
-		// contacts = new ArrayList<Contact>();
-		// contacts.add(new Contact("Kai", "Toedter", "kai@toedter.com"));
-		// contacts.add(new Contact("Darren", "Cissell",
-		// "darren.cissell@gmail.com"));
-		// contacts.add(new Contact("Peter", "Coldwell",
-		// "peter.coldwell@gmail.com"));
-		// contacts.add(new Contact("Susan", "Maiers",
-		// "susan.maiers@gmail.com"));
-		contacts = ContactsRepositoryFactory.getContactsRepository()
-				.getAllContacts();
+		contacts = ContactsRepositoryFactory.getContactsRepository().getAllContacts();
 	}
 
 	public List<Contact> getContacts() {

@@ -1,18 +1,15 @@
-/*
- * Copyright 2011 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/*******************************************************************************
+ * Copyright (c) 2012 Kai Toedter and others.
+ * 
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
+ * 
+ * Contributors:
+ *     Kai Toedter - initial API and implementation
+ ******************************************************************************/
+
 package com.toedter.gwt.demo.contacts.client.activity;
 
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -27,37 +24,23 @@ import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
-/**
- * Activities are started and stopped by an ActivityManager associated with a
- * container Widget.
- */
-public class ContactDetailsActivity extends AbstractActivity implements
-		IContactDetailsView.Presenter {
+public class ContactDetailsActivity extends AbstractActivity implements IContactDetailsView.Presenter {
 
-	/**
-	 * Used to obtain views, eventBus, placeController. Alternatively, could be
-	 * injected via GIN.
-	 */
 	private final IClientFactory clientFactory;
 	private EventBus eventBus;
 	private ContactViewEvent.Handler handler;
 	private final String token;
 
-	public ContactDetailsActivity(ContactPlace place,
-			IClientFactory clientFactory) {
+	public ContactDetailsActivity(ContactPlace place, IClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
-		this.token = place.getToken();
-		System.out
-				.println("ContactDetailsActivity.ContactDetailsActivity() token: "
-						+ token);
+		token = place.getToken();
+		System.out.println("ContactDetailsActivity.ContactDetailsActivity() token: " + token);
 	}
 
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-		System.out.println("ContactDetailsActivity.start(): "
-				+ clientFactory.getEventBus() + ":" + eventBus);
-		final IContactDetailsView contactDetailsView = clientFactory
-				.getContactDetailsView();
+		System.out.println("ContactDetailsActivity.start(): " + clientFactory.getEventBus() + ":" + eventBus);
+		final IContactDetailsView contactDetailsView = clientFactory.getContactDetailsView();
 		this.eventBus = eventBus;
 
 		contactDetailsView.setPresenter(this);
@@ -65,8 +48,7 @@ public class ContactDetailsActivity extends AbstractActivity implements
 
 			@Override
 			public void onContactView(ContactViewEvent event) {
-				System.out.println("ContactDetailsActivity onContactView(): "
-						+ event.getContact());
+				System.out.println("ContactDetailsActivity onContactView(): " + event.getContact());
 				contactDetailsView.setContact(event.getContact());
 			}
 		};
@@ -75,8 +57,7 @@ public class ContactDetailsActivity extends AbstractActivity implements
 		containerWidget.setWidget(contactDetailsView.asWidget());
 
 		if (token != null) {
-			IContactServiceAsync contactService = clientFactory
-					.getContactService();
+			IContactServiceAsync contactService = clientFactory.getContactService();
 			contactService.getContact(token, new AsyncCallback<Contact>() {
 
 				@Override
@@ -86,8 +67,7 @@ public class ContactDetailsActivity extends AbstractActivity implements
 
 				@Override
 				public void onFailure(Throwable caught) {
-					System.err
-							.println("Error in getting contacts form contact service");
+					System.err.println("Error in getting contacts form contact service");
 				}
 			});
 		}
@@ -102,6 +82,7 @@ public class ContactDetailsActivity extends AbstractActivity implements
 	/**
 	 * @see IContactDetailsView.Presenter#goTo(Place)
 	 */
+	@Override
 	public void goTo(Place place) {
 		clientFactory.getPlaceController().goTo(place);
 	}

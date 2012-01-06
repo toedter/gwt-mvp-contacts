@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2010 Siemens AG and others.
+ * Copyright (c) 2012 Kai Toedter and others.
  * 
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
  * Contributors:
- *     Kai Tödter - initial implementation
+ *     Kai Toedter - initial API and implementation
  ******************************************************************************/
 
 package com.toedter.gwt.demo.contacts.server;
@@ -43,8 +43,7 @@ public class VCardContactsRepository implements IContactsRepository {
 
 	private File[] getContacts() throws Exception {
 		File directory = new File("vcards");
-		System.out.println("VCardContactsRepository.getContacts(): "
-				+ directory.getCanonicalPath());
+		System.out.println("VCardContactsRepository.getContacts(): " + directory.getCanonicalPath());
 		return directory.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -80,35 +79,12 @@ public class VCardContactsRepository implements IContactsRepository {
 	 */
 	public Contact readFromVCard(String fileName) {
 		Contact contact = new Contact();
-		contact.setSourceFile(fileName);
 		BufferedReader bufferedReader = null;
 		String charSet = "Cp1252";
 
-		/*
-		 * first try to guess the char set (currently not working under some
-		 * JVMs
-		 */
-
-		/*
-		 * try { bufferedReader = new BufferedReader(new InputStreamReader( new
-		 * FileInputStream(fileName))); String line; while ((line =
-		 * bufferedReader.readLine()) != null) { int index =
-		 * line.indexOf("CHARSET="); if (index != -1) { int endIndex = index +
-		 * 8; while (line.charAt(endIndex) != ':' && line.charAt(endIndex) !=
-		 * ';') { endIndex += 1; } charSet = line.substring(index + 8,
-		 * endIndex); break; } } } catch (FileNotFoundException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace();
-		 * 
-		 * } catch (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } finally { try { if (bufferedReader != null) {
-		 * bufferedReader.close(); } } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } }
-		 */
-
-		// Then parse the vCard
+		// parse the vCard
 		try {
-			InputStreamReader inputStreamReader = new InputStreamReader(
-					new FileInputStream(fileName), charSet);
+			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(fileName), charSet);
 			bufferedReader = new BufferedReader(inputStreamReader);
 			String line;
 			String value;
@@ -191,8 +167,7 @@ public class VCardContactsRepository implements IContactsRepository {
 				if (value != null) {
 					line = bufferedReader.readLine();
 					StringBuilder builder = new StringBuilder();
-					while (line != null && line.length() > 0
-							&& line.charAt(0) == ' ') {
+					while (line != null && line.length() > 0 && line.charAt(0) == ' ') {
 						builder.append(line.trim());
 						line = bufferedReader.readLine();
 					}
