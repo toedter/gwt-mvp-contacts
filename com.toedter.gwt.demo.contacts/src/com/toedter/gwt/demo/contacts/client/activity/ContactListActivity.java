@@ -76,6 +76,9 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 					System.err.println("Error in getting contacts form contact service");
 				}
 			});
+		} else if (token != null) {
+			Contact contact = getContact(token);
+			contactListView.selectInitialContact(contact);
 		}
 	}
 
@@ -86,7 +89,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 
 	@Override
 	public void select(Contact contact) {
-		eventBus.fireEvent(new ContactViewEvent(contact));
+		// eventBus.fireEvent(new ContactViewEvent(contact));
 		goTo(new ContactPlace(contact.getEmail()));
 	}
 
