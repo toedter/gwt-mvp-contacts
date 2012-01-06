@@ -16,11 +16,9 @@ import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
-public class ContactListView extends ResizeComposite implements
-		IContactListView {
+public class ContactListView extends ResizeComposite implements IContactListView {
 
-	private static ContactListViewUiBinder uiBinder = GWT
-			.create(ContactListViewUiBinder.class);
+	private static ContactListViewUiBinder uiBinder = GWT.create(ContactListViewUiBinder.class);
 
 	interface SelectionStyle extends CssResource {
 		String selectedRow();
@@ -59,8 +57,7 @@ public class ContactListView extends ResizeComposite implements
 
 		header.setText(0, 0, "First Name");
 		header.setText(0, 1, "Last Name");
-		header.getCellFormatter().setHorizontalAlignment(0, 3,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		header.getCellFormatter().setHorizontalAlignment(0, 3, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		// Initialize the table.
 		table.getColumnFormatter().setWidth(0, "100px");
@@ -123,5 +120,10 @@ public class ContactListView extends ResizeComposite implements
 			table.setText(i, 1, contact.getLastName());
 			i++;
 		}
+	}
+
+	@Override
+	public void selectInitialContact(Contact contact) {
+		// Not used, use setInitialRow instead
 	}
 }

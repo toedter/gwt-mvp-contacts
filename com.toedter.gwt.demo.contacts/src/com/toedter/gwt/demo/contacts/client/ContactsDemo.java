@@ -58,7 +58,7 @@ public class ContactsDemo implements EntryPoint {
 		// westPanel.setStyleName("yellowBackground");
 		centerPanel.setStyleName("greyBackground");
 
-		splitLayoutPanel.addWest(westPanel, 200);
+		splitLayoutPanel.addWest(westPanel, 225);
 		splitLayoutPanel.add(centerPanel);
 
 		northPanel.add(new ToolBar());
@@ -73,25 +73,19 @@ public class ContactsDemo implements EntryPoint {
 
 		// Start CenterActivityManager for the center widget with the
 		// CenterActivityMapper
-		ActivityMapper centerActivityMapper = new CenterActivityMapper(
-				clientFactory);
-		ActivityManager centerActivityManager = new ActivityManager(
-				centerActivityMapper, eventBus);
+		ActivityMapper centerActivityMapper = new CenterActivityMapper(clientFactory);
+		ActivityManager centerActivityManager = new ActivityManager(centerActivityMapper, eventBus);
 		centerActivityManager.setDisplay(centerDisplay);
 
 		// Start WestActivityManager for the west widget with the
 		// WestActivityMapper
-		ActivityMapper westActivityMapper = new WestActivityMapper(
-				clientFactory);
-		ActivityManager westActivityManager = new ActivityManager(
-				westActivityMapper, eventBus);
+		ActivityMapper westActivityMapper = new WestActivityMapper(clientFactory);
+		ActivityManager westActivityManager = new ActivityManager(westActivityMapper, eventBus);
 		westActivityManager.setDisplay(westDisplay);
 
 		// Start PlaceHistoryHandler with our PlaceHistoryMapper
-		AppPlaceHistoryMapper historyMapper = GWT
-				.create(AppPlaceHistoryMapper.class);
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
-				historyMapper);
+		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
+		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 		historyHandler.register(placeController, eventBus, defaultPlace);
 
 		RootLayoutPanel.get().add(dockLayoutPanel);

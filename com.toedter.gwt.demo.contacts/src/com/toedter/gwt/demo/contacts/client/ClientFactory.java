@@ -5,19 +5,23 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import com.toedter.gwt.demo.contacts.client.ui.ContactDetailsView2;
-import com.toedter.gwt.demo.contacts.client.ui.ContactListView;
+import com.toedter.gwt.demo.contacts.client.ui.ContactListView2;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 
 public class ClientFactory implements IClientFactory {
 	private static final EventBus eventBus = new SimpleEventBus();
-	private static final PlaceController placeController = new PlaceController(
-			eventBus);
-	private static final ContactListView contactListView = new ContactListView();
+	private static final PlaceController placeController = new PlaceController(eventBus);
+
+	// private static final IContactListView contactListView = new
+	// ContactListView();
+	private static final IContactListView contactListView = new ContactListView2();
+
+	// private static final IContactDetailsView contactDetailsView = new
+	// ContactDetailsView();
 	private static final IContactDetailsView contactDetailsView = new ContactDetailsView2();
 
-	private final IContactServiceAsync contactService = GWT
-			.create(IContactService.class);
+	private final IContactServiceAsync contactService = GWT.create(IContactService.class);
 
 	@Override
 	public EventBus getEventBus() {

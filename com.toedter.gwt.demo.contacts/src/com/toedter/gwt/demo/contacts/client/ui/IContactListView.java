@@ -12,11 +12,15 @@ public interface IContactListView extends IsWidget, AcceptsOneWidget {
 		void goTo(Place place);
 
 		void select(int index);
+
+		void select(Contact contact);
 	}
 
 	void setPresenter(Presenter listener);
 
 	void selectInitialRow(int i);
+
+	void selectInitialContact(Contact contact);
 
 	void initialize(List<Contact> contacts);
 }

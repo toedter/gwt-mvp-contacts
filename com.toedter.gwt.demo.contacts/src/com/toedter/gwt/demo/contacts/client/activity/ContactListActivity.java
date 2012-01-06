@@ -14,16 +14,14 @@ import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
-public class ContactListActivity extends AbstractActivity implements
-		IContactListView.Presenter {
+public class ContactListActivity extends AbstractActivity implements IContactListView.Presenter {
 	private final IClientFactory clientFactory;
 	private final String token;
 	private EventBus eventBus;
 	private static List<Contact> contacts;
 
 	public ContactListActivity(ContactPlace place, IClientFactory clientFactory) {
-		System.out.println("ContactListActivity.ContactListActivity(): "
-				+ place.getToken());
+		System.out.println("ContactListActivity.ContactListActivity(): " + place.getToken());
 		token = place.getToken();
 		this.clientFactory = clientFactory;
 	}
@@ -31,36 +29,39 @@ public class ContactListActivity extends AbstractActivity implements
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		this.eventBus = eventBus;
-		System.out.println("ContactListActivity.start(): "
-				+ clientFactory.getEventBus() + ":" + eventBus);
+		System.out.println("ContactListActivity.start(): " + clientFactory.getEventBus() + ":" + eventBus);
 		final IContactListView contactListView = clientFactory.getMainView();
 		contactListView.setPresenter(this);
 		containerWidget.setWidget(contactListView.asWidget());
 
 		if (contacts == null) {
 			final long startTime = System.currentTimeMillis();
-			IContactServiceAsync contactService = clientFactory
-					.getContactService();
+			IContactServiceAsync contactService = clientFactory.getContactService();
 			contactService.getAllContacts(new AsyncCallback<List<Contact>>() {
 
 				@Override
 				public void onSuccess(List<Contact> result) {
-					System.out.println("Time: "
-							+ (System.currentTimeMillis() - startTime));
+					System.out.println("Time: " + (System.currentTimeMillis() - startTime));
 					contacts = result;
 					contactListView.initialize(result);
 					if (token != null) {
+						// views either deal with domain objects (Contact) or
+						// just row indices
 						int index = getContactIndex(token);
 						if (index != -1) {
 							contactListView.selectInitialRow(index);
+						}
+
+						Contact contact = getContact(token);
+						if (contact != null) {
+							contactListView.selectInitialContact(contact);
 						}
 					}
 				}
 
 				@Override
 				public void onFailure(Throwable caught) {
-					System.err
-							.println("Error in getting contacts form contact service");
+					System.err.println("Error in getting contacts form contact service");
 				}
 			});
 		}
@@ -69,6 +70,12 @@ public class ContactListActivity extends AbstractActivity implements
 	@Override
 	public void goTo(Place place) {
 		clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
+	public void select(Contact contact) {
+		eventBus.fireEvent(new ContactViewEvent(contact));
+		goTo(new ContactPlace(contact.getEmail()));
 	}
 
 	@Override
@@ -81,13 +88,22 @@ public class ContactListActivity extends AbstractActivity implements
 
 	private int getContactIndex(String email) {
 		int i = 0;
-		for (Contact contactInList : contacts) {
-			if (email.equals(contactInList.getEmail())) {
+		for (Contact contact : contacts) {
+			if (email.equals(contact.getEmail())) {
 				return i;
 			}
 			i++;
 		}
 		return -1;
+	}
+
+	private Contact getContact(String email) {
+		for (Contact contact : contacts) {
+			if (email.equals(contact.getEmail())) {
+				return contact;
+			}
+		}
+		return null;
 	}
 
 }
