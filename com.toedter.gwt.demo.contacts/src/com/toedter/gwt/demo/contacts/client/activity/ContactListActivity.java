@@ -96,7 +96,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 	public void select(Contact contact) {
 		System.out.println("ContactListActivity.select(): " + token + ":" + contact.getEmail());
 		eventBus.fireEvent(new ContactViewEvent(contact));
-		if (token != null && !token.equals(contact.getEmail())) {
+		if (token == null || (token != null && !token.equals(contact.getEmail()))) {
 			goTo(new ContactPlace(contact.getEmail()));
 		}
 	}

@@ -27,12 +27,8 @@ public class ClientFactory implements IClientFactory {
 	private static final EventBus eventBus = new SimpleEventBus();
 	private static final PlaceController placeController = new PlaceController(eventBus);
 
-	// private static final IContactListView contactListView = new
-	// ContactListView();
 	private static final IContactListView contactListView = new ContactListView2();
 
-	// private static final IContactDetailsView contactDetailsView = new
-	// ContactDetailsView();
 	private static final IContactDetailsView contactDetailsView = new ContactDetailsView2();
 
 	private static final IToolBarView toolBarView = new ToolBarView();
