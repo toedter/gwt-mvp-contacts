@@ -26,6 +26,7 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 	private EventBus eventBus;
 	private final String token;
 	private final IClientFactory clientFactory;
+	private IToolBarView toolBarView;
 
 	public ToolBarActivity(ContactPlace place, IClientFactory clientFactory) {
 		System.out.println("ToolBarActivity.ToolBarActivity(): " + place.getToken());
@@ -43,9 +44,15 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		System.out.println("ToolBarActivity.start()");
 		this.eventBus = eventBus;
-		final IToolBarView toolBarView = clientFactory.getToolBarView();
+		toolBarView = clientFactory.getToolBarView();
 		toolBarView.setPresenter(this);
 		containerWidget.setWidget(toolBarView.asWidget());
+	}
+
+	@Override
+	public String mayStop() {
+		toolBarView.setPresenter(null);
+		return null;
 	}
 
 	@Override

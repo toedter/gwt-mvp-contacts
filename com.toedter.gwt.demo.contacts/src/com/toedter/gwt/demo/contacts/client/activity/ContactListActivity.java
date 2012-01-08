@@ -80,6 +80,12 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 	}
 
 	@Override
+	public String mayStop() {
+		contactListView.setPresenter(null);
+		return null;
+	}
+
+	@Override
 	public void goTo(Place place) {
 		clientFactory.getPlaceController().goTo(place);
 	}

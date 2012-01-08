@@ -28,6 +28,7 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 	private EventBus eventBus;
 	private ContactViewEvent.Handler handler;
 	private final String token;
+	private IContactDetailsView contactDetailsView;
 
 	public ContactDetailsActivity(ContactPlace place, IClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
@@ -44,7 +45,7 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		System.out.println("ContactDetailsActivity.start()");
-		final IContactDetailsView contactDetailsView = clientFactory.getContactDetailsView();
+		contactDetailsView = clientFactory.getContactDetailsView();
 		this.eventBus = eventBus;
 
 		contactDetailsView.setPresenter(this);
@@ -61,10 +62,11 @@ public class ContactDetailsActivity extends AbstractActivity implements IContact
 		containerWidget.setWidget(contactDetailsView.asWidget());
 	}
 
-	// @Override
-	// public String mayStop() {
-	// return "Please hold on. This activity is stopping.";
-	// }
+	@Override
+	public String mayStop() {
+		contactDetailsView.setPresenter(null);
+		return null;
+	}
 
 	/**
 	 * @see IContactDetailsView.Presenter#goTo(Place)
