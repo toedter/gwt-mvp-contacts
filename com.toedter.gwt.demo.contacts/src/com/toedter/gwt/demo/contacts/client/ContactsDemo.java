@@ -77,6 +77,8 @@ public class ContactsDemo implements EntryPoint {
 		}
 	};
 
+	private IClientFactory clientFactory;
+
 	@Override
 	public void onModuleLoad() {
 		northPanel.setStyleName("darkGreyBackground");
@@ -90,9 +92,8 @@ public class ContactsDemo implements EntryPoint {
 		dockLayoutPanel.addNorth(northPanel, 4.5);
 		dockLayoutPanel.add(splitLayoutPanel);
 
-		// Create IClientFactory using deferred binding so it can be replaced
-		// with different implementations in gwt.xml
-		IClientFactory clientFactory = GWT.create(IClientFactory.class);
+		clientFactory = GWT.create(IClientFactory.class);
+
 		EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 
@@ -123,5 +124,12 @@ public class ContactsDemo implements EntryPoint {
 
 		// Goes to place represented on URL or default place
 		historyHandler.handleCurrentHistory();
+	}
+
+	/*
+	 * For better UI testability with gwt-test-utils
+	 */
+	public IClientFactory getClientFactory() {
+		return clientFactory;
 	}
 }
