@@ -38,6 +38,7 @@ public class ContactListActivityTest {
 	private Contact contact1;
 	private Contact contact2;
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		clientFactoryMock = mock(IClientFactory.class);
@@ -63,7 +64,6 @@ public class ContactListActivityTest {
 			@Override
 			public Void answer(InvocationOnMock invocation) {
 				Object[] args = invocation.getArguments();
-				@SuppressWarnings("unchecked")
 				AsyncCallback<List<Contact>> asyncCallback = (AsyncCallback<List<Contact>>) args[0];
 				asyncCallback.onSuccess(contacts);
 				return null;
