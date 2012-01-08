@@ -135,4 +135,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 		return null;
 	}
 
+	public void resetContacts() {
+		contacts = null;
+	}
 }
