@@ -12,6 +12,8 @@
 
 package com.toedter.gwt.demo.contacts.client;
 
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
@@ -22,10 +24,12 @@ import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 import com.toedter.gwt.demo.contacts.client.ui.IToolBarView;
 import com.toedter.gwt.demo.contacts.client.ui.ToolBarView;
+import com.toedter.gwt.demo.contacts.shared.Contact;
 
 public class ClientFactory implements IClientFactory {
 	private static final EventBus eventBus = new SimpleEventBus();
-	private static final PlaceController placeController = new PlaceController(eventBus);
+	private static final PlaceController placeController = new PlaceController(
+			eventBus);
 
 	private static final IContactListView contactListView = new ContactListView2();
 
@@ -33,7 +37,9 @@ public class ClientFactory implements IClientFactory {
 
 	private static final IToolBarView toolBarView = new ToolBarView();
 
-	private final IContactServiceAsync contactService = GWT.create(IContactService.class);
+	private final IContactServiceAsync contactService = GWT
+			.create(IContactService.class);
+	private List<Contact> contacts;
 
 	@Override
 	public EventBus getEventBus() {
@@ -63,5 +69,15 @@ public class ClientFactory implements IClientFactory {
 	@Override
 	public IContactServiceAsync getContactService() {
 		return contactService;
+	}
+
+	@Override
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	@Override
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
 	}
 }

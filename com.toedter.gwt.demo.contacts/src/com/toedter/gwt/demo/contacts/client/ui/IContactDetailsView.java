@@ -22,6 +22,8 @@ public interface IContactDetailsView extends IsWidget {
 
 	void setPresenter(Presenter presenter);
 
+	String getContactEmail();
+
 	public interface Presenter {
 		void goTo(Place place);
 	}

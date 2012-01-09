@@ -12,11 +12,14 @@
 
 package com.toedter.gwt.demo.contacts.client;
 
+import java.util.List;
+
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
 import com.toedter.gwt.demo.contacts.client.ui.IContactDetailsView;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 import com.toedter.gwt.demo.contacts.client.ui.IToolBarView;
+import com.toedter.gwt.demo.contacts.shared.Contact;
 
 public interface IClientFactory {
 	EventBus getEventBus();
@@ -30,4 +33,8 @@ public interface IClientFactory {
 	IToolBarView getToolBarView();
 
 	IContactServiceAsync getContactService();
+
+	List<Contact> getContacts();
+
+	void setContacts(List<Contact> contacts);
 }

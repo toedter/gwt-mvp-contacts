@@ -21,7 +21,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
-public class ContactDetailsView extends Composite implements IContactDetailsView {
+public class ContactDetailsView extends Composite implements
+		IContactDetailsView {
 
 	interface Binder extends UiBinder<Widget, ContactDetailsView> {
 	}
@@ -58,5 +59,10 @@ public class ContactDetailsView extends Composite implements IContactDetailsView
 	@Override
 	public void setContact(Contact contact) {
 		nameText.setText(contact.getFirstName() + " " + contact.getLastName());
+	}
+
+	@Override
+	public String getContactEmail() {
+		return "";
 	}
 }

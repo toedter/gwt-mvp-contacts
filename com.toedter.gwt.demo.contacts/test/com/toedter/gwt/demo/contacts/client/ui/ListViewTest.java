@@ -1,9 +1,12 @@
 package com.toedter.gwt.demo.contacts.client.ui;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.cellview.client.CellTable;
 import com.octo.gwt.test.GwtCreateHandler;
 import com.octo.gwt.test.GwtTest;
 import com.octo.gwt.test.utils.events.Browser;
@@ -12,6 +15,7 @@ import com.toedter.gwt.demo.contacts.client.IClientFactory;
 import com.toedter.gwt.demo.contacts.client.mvp.AppPlaceHistoryMapper;
 import com.toedter.gwt.demo.contacts.client.place.ContactEditPlace;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
+import com.toedter.gwt.demo.contacts.shared.Contact;
 
 public class ListViewTest extends GwtTest {
 
@@ -65,17 +69,20 @@ public class ListViewTest extends GwtTest {
 	}
 
 	@Test
-	public void checkClickOnSave() {
+	public void checkClickOnFirstContact() {
 
 		Browser.click(((ToolBarView) clientFactory.getToolBarView()).saveButton);
+		IContactListView contactListView = clientFactory.getContactListView();
+		CellTable<Contact> table = ((ContactListView2) contactListView).cellTable;
 
-		// Assert
-		// Assert.assertTrue(app.dialogBox.isShowing());
-		// Assert.assertEquals("", app.errorLabel.getText());
-		// Assert.assertEquals("Hello, World!",
-		// app.serverResponseLabel.getHTML());
-		// Assert.assertEquals("Remote Procedure Call",
-		// app.dialogBox.getText());
+		Browser.click(table, clientFactory.getContacts().get(0));
+
+		String email = ((IContactDetailsView) clientFactory
+				.getContactDetailsView()).getContactEmail();
+
+		// After having clicked on the first contact in the list view, the email
+		// should be displayed in the email field of the details view
+		Assert.assertEquals(clientFactory.getContacts().get(0).getEmail(),
+				email);
 	}
-
 }

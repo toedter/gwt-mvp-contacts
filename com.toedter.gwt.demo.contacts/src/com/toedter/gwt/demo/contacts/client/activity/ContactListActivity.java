@@ -26,12 +26,10 @@ import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
-public class ContactListActivity extends AbstractActivity implements
-		IContactListView.Presenter {
+public class ContactListActivity extends AbstractActivity implements IContactListView.Presenter {
 	private final IClientFactory clientFactory;
 	private final String token;
 	private EventBus eventBus;
-	private static List<Contact> contacts;
 	private IContactListView contactListView;
 
 	public ContactListActivity(ContactPlace place, IClientFactory clientFactory) {
@@ -48,19 +46,17 @@ public class ContactListActivity extends AbstractActivity implements
 		contactListView.setPresenter(this);
 		containerWidget.setWidget(contactListView.asWidget());
 
-		if (contacts == null) {
+		if (clientFactory.getContacts() == null) {
 			final long startTime = System.currentTimeMillis();
-			IContactServiceAsync contactService = clientFactory
-					.getContactService();
+			IContactServiceAsync contactService = clientFactory.getContactService();
 			contactService.getAllContacts(new AsyncCallback<List<Contact>>() {
 
 				@Override
 				public void onSuccess(List<Contact> result) {
-					System.out.println("Time for RPC: "
-							+ (System.currentTimeMillis() - startTime));
-					contacts = result;
+					System.out.println("Time for RPC: " + (System.currentTimeMillis() - startTime));
+					clientFactory.setContacts(result);
 					contactListView.initialize(result);
-					if (token != null) {
+					if (token.length() > 0) {
 						// views either deal with domain objects (Contact) or
 						// just row indices
 						int index = getContactIndex(token);
@@ -74,8 +70,7 @@ public class ContactListActivity extends AbstractActivity implements
 
 				@Override
 				public void onFailure(Throwable caught) {
-					System.err
-							.println("Error in getting contacts form contact service");
+					System.err.println("Error in getting contacts form contact service");
 				}
 			});
 		} else if (token.length() > 0) {
@@ -104,11 +99,9 @@ public class ContactListActivity extends AbstractActivity implements
 
 	@Override
 	public void select(Contact contact) {
-		System.out.println("ContactListActivity.select(): " + token + ":"
-				+ contact.getEmail());
+		System.out.println("ContactListActivity.select(): " + token + ":" + contact.getEmail());
 		eventBus.fireEvent(new ContactViewEvent(contact));
-		if (token == null
-				|| (token != null && !token.equals(contact.getEmail()))) {
+		if (token == null || (token != null && !token.equals(contact.getEmail()))) {
 			goTo(new ContactPlace(contact.getEmail()));
 		}
 	}
@@ -116,14 +109,14 @@ public class ContactListActivity extends AbstractActivity implements
 	@Override
 	public void select(int index) {
 		System.out.println("ContactListActivity.select(): " + index);
-		Contact contact = contacts.get(index);
+		Contact contact = clientFactory.getContacts().get(index);
 		eventBus.fireEvent(new ContactViewEvent(contact));
 		goTo(new ContactPlace(contact.getEmail()));
 	}
 
 	private int getContactIndex(String email) {
 		int i = 0;
-		for (Contact contact : contacts) {
+		for (Contact contact : clientFactory.getContacts()) {
 			if (email.equals(contact.getEmail())) {
 				return i;
 			}
@@ -133,15 +126,11 @@ public class ContactListActivity extends AbstractActivity implements
 	}
 
 	private Contact getContact(String email) {
-		for (Contact contact : contacts) {
+		for (Contact contact : clientFactory.getContacts()) {
 			if (email.equals(contact.getEmail())) {
 				return contact;
 			}
 		}
 		return null;
-	}
-
-	public void resetContacts() {
-		contacts = null;
 	}
 }
