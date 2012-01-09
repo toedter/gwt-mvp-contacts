@@ -96,9 +96,9 @@ public class ContactListActivityTest {
 	}
 
 	@Test
-	public void testStartWithNullToken() {
+	public void testStartWithEmptyToken() {
 		ContactListActivity contactListActivity = new ContactListActivity(
-				new ContactPlace(null), clientFactoryMock);
+				new ContactPlace(""), clientFactoryMock);
 		contactListActivity.resetContacts(); // force RPC
 		contactListActivity.start(acceptsOneWidgetMock, eventBusMock);
 

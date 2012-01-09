@@ -19,7 +19,7 @@ public class ContactPlace extends Place {
 	private final String token;
 
 	public ContactPlace(String token) {
-		this.token = token;
+		this.token = token == null ? "" : token;
 	}
 
 	public String getToken() {

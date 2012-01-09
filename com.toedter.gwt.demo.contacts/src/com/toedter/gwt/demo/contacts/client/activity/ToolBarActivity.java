@@ -29,13 +29,15 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 	private IToolBarView toolBarView;
 
 	public ToolBarActivity(ContactPlace place, IClientFactory clientFactory) {
-		System.out.println("ToolBarActivity.ToolBarActivity(): " + place.getToken());
+		System.out.println("ToolBarActivity.ToolBarActivity(): "
+				+ place.getToken());
 		token = place.getToken();
 		this.clientFactory = clientFactory;
 	}
 
 	public ToolBarActivity(ContactEditPlace place, IClientFactory clientFactory) {
-		System.out.println("ToolBarActivity.ToolBarActivity(): " + place.getToken());
+		System.out.println("ToolBarActivity.ToolBarActivity(): "
+				+ place.getToken());
 		token = place.getToken();
 		this.clientFactory = clientFactory;
 	}
@@ -63,7 +65,7 @@ public class ToolBarActivity extends AbstractActivity implements Presenter {
 	@Override
 	public void save() {
 		System.out.println("ToolBarActivity.save(): Not implemented yet");
-		clientFactory.getPlaceController().goTo(new ContactPlace(null));
+		clientFactory.getPlaceController().goTo(new ContactPlace(""));
 	}
 
 }

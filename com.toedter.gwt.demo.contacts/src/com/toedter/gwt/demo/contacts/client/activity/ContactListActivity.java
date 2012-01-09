@@ -26,7 +26,8 @@ import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
-public class ContactListActivity extends AbstractActivity implements IContactListView.Presenter {
+public class ContactListActivity extends AbstractActivity implements
+		IContactListView.Presenter {
 	private final IClientFactory clientFactory;
 	private final String token;
 	private EventBus eventBus;
@@ -49,12 +50,14 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 
 		if (contacts == null) {
 			final long startTime = System.currentTimeMillis();
-			IContactServiceAsync contactService = clientFactory.getContactService();
+			IContactServiceAsync contactService = clientFactory
+					.getContactService();
 			contactService.getAllContacts(new AsyncCallback<List<Contact>>() {
 
 				@Override
 				public void onSuccess(List<Contact> result) {
-					System.out.println("Time for RPC: " + (System.currentTimeMillis() - startTime));
+					System.out.println("Time for RPC: "
+							+ (System.currentTimeMillis() - startTime));
 					contacts = result;
 					contactListView.initialize(result);
 					if (token != null) {
@@ -71,10 +74,11 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 
 				@Override
 				public void onFailure(Throwable caught) {
-					System.err.println("Error in getting contacts form contact service");
+					System.err
+							.println("Error in getting contacts form contact service");
 				}
 			});
-		} else if (token != null) {
+		} else if (token.length() > 0) {
 			selectInitialContact(token);
 		}
 	}
@@ -100,9 +104,11 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 
 	@Override
 	public void select(Contact contact) {
-		System.out.println("ContactListActivity.select(): " + token + ":" + contact.getEmail());
+		System.out.println("ContactListActivity.select(): " + token + ":"
+				+ contact.getEmail());
 		eventBus.fireEvent(new ContactViewEvent(contact));
-		if (token == null || (token != null && !token.equals(contact.getEmail()))) {
+		if (token == null
+				|| (token != null && !token.equals(contact.getEmail()))) {
 			goTo(new ContactPlace(contact.getEmail()));
 		}
 	}

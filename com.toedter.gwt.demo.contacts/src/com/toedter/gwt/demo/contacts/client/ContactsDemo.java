@@ -35,7 +35,7 @@ import com.toedter.gwt.demo.contacts.client.mvp.WestActivityMapper;
 import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 
 public class ContactsDemo implements EntryPoint {
-	private final Place defaultPlace = new ContactPlace(null);
+	private final Place defaultPlace = new ContactPlace("");
 
 	private final DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.EM);
 	private final SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
@@ -99,25 +99,33 @@ public class ContactsDemo implements EntryPoint {
 
 		// Start NorthActivityManager for the north widget with the
 		// NorthActivityMapper
-		ActivityMapper northActivityMapper = new NorthActivityMapper(clientFactory);
-		ActivityManager northActivityManager = new ActivityManager(northActivityMapper, eventBus);
+		ActivityMapper northActivityMapper = new NorthActivityMapper(
+				clientFactory);
+		ActivityManager northActivityManager = new ActivityManager(
+				northActivityMapper, eventBus);
 		northActivityManager.setDisplay(northDisplay);
 
 		// Start CenterActivityManager for the center widget with the
 		// CenterActivityMapper
-		ActivityMapper centerActivityMapper = new CenterActivityMapper(clientFactory);
-		ActivityManager centerActivityManager = new ActivityManager(centerActivityMapper, eventBus);
+		ActivityMapper centerActivityMapper = new CenterActivityMapper(
+				clientFactory);
+		ActivityManager centerActivityManager = new ActivityManager(
+				centerActivityMapper, eventBus);
 		centerActivityManager.setDisplay(centerDisplay);
 
 		// Start WestActivityManager for the west widget with the
 		// WestActivityMapper
-		ActivityMapper westActivityMapper = new WestActivityMapper(clientFactory);
-		ActivityManager westActivityManager = new ActivityManager(westActivityMapper, eventBus);
+		ActivityMapper westActivityMapper = new WestActivityMapper(
+				clientFactory);
+		ActivityManager westActivityManager = new ActivityManager(
+				westActivityMapper, eventBus);
 		westActivityManager.setDisplay(westDisplay);
 
 		// Start PlaceHistoryHandler with our PlaceHistoryMapper
-		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+		AppPlaceHistoryMapper historyMapper = GWT
+				.create(AppPlaceHistoryMapper.class);
+		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
+				historyMapper);
 		historyHandler.register(placeController, eventBus, defaultPlace);
 
 		RootLayoutPanel.get().add(dockLayoutPanel);
