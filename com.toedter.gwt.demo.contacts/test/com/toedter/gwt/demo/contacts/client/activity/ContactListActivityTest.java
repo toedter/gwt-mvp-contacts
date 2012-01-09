@@ -2,7 +2,6 @@ package com.toedter.gwt.demo.contacts.client.activity;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -11,7 +10,10 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
@@ -25,15 +27,27 @@ import com.toedter.gwt.demo.contacts.client.place.ContactPlace;
 import com.toedter.gwt.demo.contacts.client.ui.IContactListView;
 import com.toedter.gwt.demo.contacts.shared.Contact;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ContactListActivityTest {
 
+	@Mock
 	private IClientFactory clientFactoryMock;
+
+	@Mock
 	private PlaceController placeControllerMock;
+
+	@Mock
 	private IContactListView contactListViewMock;
+
+	@Mock
 	private AcceptsOneWidget acceptsOneWidgetMock;
+
+	@Mock
 	private IContactServiceAsync contactServiceAsyncMock;
 
+	@Mock
 	private EventBus eventBusMock;
+
 	private List<Contact> contacts;
 	private Contact contact1;
 	private Contact contact2;
@@ -41,16 +55,12 @@ public class ContactListActivityTest {
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
-		clientFactoryMock = mock(IClientFactory.class);
-		placeControllerMock = mock(PlaceController.class);
-		eventBusMock = mock(EventBus.class);
-		acceptsOneWidgetMock = mock(AcceptsOneWidget.class);
-		contactServiceAsyncMock = mock(IContactServiceAsync.class);
-		contactListViewMock = mock(IContactListView.class);
-
-		when(clientFactoryMock.getPlaceController()).thenReturn(placeControllerMock);
-		when(clientFactoryMock.getContactListView()).thenReturn(contactListViewMock);
-		when(clientFactoryMock.getContactService()).thenReturn(contactServiceAsyncMock);
+		when(clientFactoryMock.getPlaceController()).thenReturn(
+				placeControllerMock);
+		when(clientFactoryMock.getContactListView()).thenReturn(
+				contactListViewMock);
+		when(clientFactoryMock.getContactService()).thenReturn(
+				contactServiceAsyncMock);
 
 		contact1 = new Contact();
 		contact1.setEmail("kai@toedter.com");
@@ -70,12 +80,14 @@ public class ContactListActivityTest {
 			}
 		};
 
-		doAnswer(answer).when(contactServiceAsyncMock).getAllContacts(any(AsyncCallback.class));
+		doAnswer(answer).when(contactServiceAsyncMock).getAllContacts(
+				any(AsyncCallback.class));
 	}
 
 	@Test
 	public void testGotoPlace() {
-		ContactListActivity contactListActivity = new ContactListActivity(new ContactPlace(null), clientFactoryMock);
+		ContactListActivity contactListActivity = new ContactListActivity(
+				new ContactPlace(null), clientFactoryMock);
 
 		ContactPlace contactPlace = new ContactPlace("kai@toedter.com");
 		contactListActivity.goTo(contactPlace);
@@ -85,7 +97,8 @@ public class ContactListActivityTest {
 
 	@Test
 	public void testStartWithNullToken() {
-		ContactListActivity contactListActivity = new ContactListActivity(new ContactPlace(null), clientFactoryMock);
+		ContactListActivity contactListActivity = new ContactListActivity(
+				new ContactPlace(null), clientFactoryMock);
 		contactListActivity.resetContacts(); // force RPC
 		contactListActivity.start(acceptsOneWidgetMock, eventBusMock);
 
@@ -96,7 +109,8 @@ public class ContactListActivityTest {
 	@Test
 	public void testStartWithToken() {
 		String token = "kai@toedter.com";
-		ContactListActivity contactListActivity = new ContactListActivity(new ContactPlace(token), clientFactoryMock);
+		ContactListActivity contactListActivity = new ContactListActivity(
+				new ContactPlace(token), clientFactoryMock);
 		contactListActivity.resetContacts(); // force RPC
 		contactListActivity.start(acceptsOneWidgetMock, eventBusMock);
 
@@ -108,7 +122,8 @@ public class ContactListActivityTest {
 
 	@Test
 	public void testMayStop() {
-		ContactListActivity contactListActivity = new ContactListActivity(new ContactPlace(null), clientFactoryMock);
+		ContactListActivity contactListActivity = new ContactListActivity(
+				new ContactPlace(null), clientFactoryMock);
 		contactListActivity.start(acceptsOneWidgetMock, eventBusMock);
 		contactListActivity.mayStop();
 
