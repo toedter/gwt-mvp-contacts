@@ -48,12 +48,11 @@ public class ContactDetailsView2 implements IContactDetailsView {
 		flexTable.setWidget(1, 6, new Image(resources.fiveXfive()));
 		flexTable.getFlexCellFormatter().setWidth(1, 6, "5px");
 
-		image = new Image("http://127.0.0.1:8888/images/kai.png");
+		image = new Image(resources.dummyContact());
 
 		flexTable.setWidget(1, 5, image);
 		flexTable.getFlexCellFormatter().setRowSpan(1, 5, 4);
-		flexTable.getFlexCellFormatter().setVerticalAlignment(1, 5,
-				HasVerticalAlignment.ALIGN_TOP);
+		flexTable.getFlexCellFormatter().setVerticalAlignment(1, 5, HasVerticalAlignment.ALIGN_TOP);
 
 		createSeparator("General");
 		titleText = createTextBox("Title:");
@@ -76,8 +75,7 @@ public class ContactDetailsView2 implements IContactDetailsView {
 
 	private TextBox createTextBox(String text) {
 		flexTable.setText(row, 2, text);
-		flexTable.getFlexCellFormatter().setHorizontalAlignment(row, 2,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		flexTable.getFlexCellFormatter().setHorizontalAlignment(row, 2, HasHorizontalAlignment.ALIGN_RIGHT);
 		TextBox textBox = new TextBox();
 		textBox.setWidth("100%");
 		flexTable.setWidget(row, 3, textBox);
@@ -90,8 +88,7 @@ public class ContactDetailsView2 implements IContactDetailsView {
 	private void createSeparator(String text) {
 		flexTable.setText(row, 1, text);
 		flexTable.getFlexCellFormatter().setStyleName(row, 1, "separatorLabel");
-		flexTable.getFlexCellFormatter().setVerticalAlignment(row, 1,
-				HasVerticalAlignment.ALIGN_BOTTOM);
+		flexTable.getFlexCellFormatter().setVerticalAlignment(row, 1, HasVerticalAlignment.ALIGN_BOTTOM);
 		flexTable.getFlexCellFormatter().setHeight(row, 1, "25px");
 		flexTable.getFlexCellFormatter().setColSpan(row++, 1, 3);
 	}

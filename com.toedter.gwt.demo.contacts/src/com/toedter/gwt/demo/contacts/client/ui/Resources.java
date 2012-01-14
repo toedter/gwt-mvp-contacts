@@ -25,6 +25,9 @@ public interface Resources extends ClientBundle {
 	@Source("images/user-delete-2.png")
 	ImageResource deleteContact();
 
+	@Source("images/preferences-desktop-user-2.png")
+	ImageResource dummyContact();
+
 	@Source("images/5x5.png")
 	ImageResource fiveXfive();
 }
