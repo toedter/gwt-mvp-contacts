@@ -17,14 +17,13 @@
 }
 
 .greyBackground {
-	background-image: -webkit-radial-gradient(50% 50%, circle closest-corner, #ededed, #c0c0c0);
+	background-image: -webkit-radial-gradient(50% 50%, circle closest-corner, #ededed, #d0d0d0);
 	background-color: #ededed;
 }
 
 .darkGreyBackground {
-	background-image: -webkit-radial-gradient(50% 50%, circle closest-corner, #e0e0e0, #c0c0c0
-		);
-	background-color: #e0e0e0;
+	background-image: url('images/toolbar-bg.png');
+	background-repeat: repeat-x;
 }
 
 /* Splitters */
