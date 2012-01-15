@@ -41,6 +41,7 @@ public class ContactListActivity extends AbstractActivity implements IContactLis
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		System.out.println("ContactListActivity.start()");
+		ActivityRegistry.setContactListActivity(this);
 		this.eventBus = eventBus;
 		contactListView = clientFactory.getContactListView();
 		contactListView.setPresenter(this);

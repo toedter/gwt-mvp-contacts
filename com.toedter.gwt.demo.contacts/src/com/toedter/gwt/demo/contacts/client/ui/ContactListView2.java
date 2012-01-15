@@ -36,7 +36,7 @@ public class ContactListView2 extends Composite implements IContactListView {
 	private static ContactListView2UiBinder uiBinder = GWT.create(ContactListView2UiBinder.class);
 
 	@UiField(provided = true)
-	CellTable<Contact> cellTable = new CellTable<Contact>(10, (Resources) GWT.create(TableResources.class));
+	CellTable<Contact> cellTable = new CellTable<Contact>(1000, (Resources) GWT.create(TableResources.class));
 
 	private List<Contact> list;
 
@@ -148,6 +148,7 @@ public class ContactListView2 extends Composite implements IContactListView {
 
 	@Override
 	public void initialize(List<Contact> contacts) {
+		list.clear();
 		for (Contact contact : contacts) {
 			list.add(contact);
 		}

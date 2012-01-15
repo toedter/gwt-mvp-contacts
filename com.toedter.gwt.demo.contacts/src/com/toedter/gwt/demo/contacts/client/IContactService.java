@@ -24,5 +24,9 @@ public interface IContactService extends RemoteService {
 
 	Contact getContact(String email) throws IllegalArgumentException;
 
-	String getTest() throws IllegalArgumentException;
+	void addContact(Contact contact);
+
+	void deleteContact(Contact contact);
+
+	void saveContact(Contact contact);
 }

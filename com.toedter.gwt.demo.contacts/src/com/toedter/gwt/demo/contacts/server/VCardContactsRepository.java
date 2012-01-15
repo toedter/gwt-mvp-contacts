@@ -19,6 +19,8 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class VCardContactsRepository implements IContactsRepository {
 		try {
 			for (File file : getContacts()) {
 				Contact contact = readFromVCard(file.getAbsolutePath());
+				contact.setFileName(file.getAbsolutePath());
 				contacts.add(contact);
 			}
 		} catch (Exception e) {
@@ -43,7 +46,7 @@ public class VCardContactsRepository implements IContactsRepository {
 
 	private File[] getContacts() throws Exception {
 		File directory = new File("vcards");
-		System.out.println("VCardContactsRepository.getContacts(): " + directory.getCanonicalPath());
+		System.out.println("VCardContactsRepository.getContacts() from" + directory.getCanonicalPath());
 		return directory.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -55,6 +58,7 @@ public class VCardContactsRepository implements IContactsRepository {
 	@Override
 	public void addContact(final Contact contact) {
 		contacts.add(contact);
+		saveContact(contact);
 	}
 
 	@Override
@@ -64,6 +68,11 @@ public class VCardContactsRepository implements IContactsRepository {
 
 	@Override
 	public void removeContact(final Contact contact) {
+		String fileName = contact.getFileName();
+		if (fileName != null && fileName.trim().length() > 0) {
+			File file = new File(fileName);
+			file.delete();
+		}
 		contacts.remove(contact);
 	}
 
@@ -205,4 +214,71 @@ public class VCardContactsRepository implements IContactsRepository {
 		}
 		return null;
 	}
+
+	public void saveAsVCard(Contact contact, String fileName) throws IOException {
+		String charSet = "CHARSET=" + Charset.defaultCharset().name();
+		String vCard = "BEGIN:VCARD" + "\nVERSION:2.1" + "\n" + getName(contact, charSet) + "FN;" + charSet + ":"
+				+ contact.getFirstName() + " " + contact.getLastName() + "\nORG;" + charSet + ":"
+				+ contact.getCompany() + "\nTITLE:" + contact.getJobTitle() + "\nNOTE:" + contact.getNote()
+				+ "\nTEL;WORK;VOICE:" + contact.getPhone() + "\nTEL;CELL;VOICE:" + contact.getMobile() + "\nADR;WORK;"
+				+ charSet + ":" + ";;" + contact.getStreet() + ";" + contact.getCity() + ";" + contact.getState() + ";"
+				+ contact.getZip() + ";" + contact.getCountry() + "\nURL;WORK:" + contact.getWebPage()
+				+ "\nEMAIL;PREF;INTERNET:" + contact.getEmail() + "\n";
+
+		if (!contact.getJpegString().equals("")) {
+			vCard += "PHOTO;TYPE=JPEG;ENCODING=BASE64:\n " + contact.getJpegString() + "\n";
+		}
+
+		vCard += "END:VCARD\n";
+
+		PrintWriter out = new PrintWriter(fileName, "Cp1252");
+		out.println(vCard);
+		out.close();
+	}
+
+	private String getName(Contact contact, String charSet) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("N;").append(charSet).append(':'); //$NON-NLS-1$
+		builder.append(contact.getLastName()).append(';');
+		builder.append(contact.getFirstName()).append(';');
+		builder.append(contact.getMiddleName());
+
+		String title = contact.getTitle();
+		if (title.length() != 0) {
+			builder.append(';').append(title);
+		}
+
+		builder.append('\n');
+		return builder.toString();
+	}
+
+	@Override
+	public void saveContact(Contact contact) {
+		try {
+			String fileName = contact.getFileName();
+			if (fileName == null || fileName.trim().length() == 0) {
+				fileName = "vcards/" + contact.getFirstName() + " " + contact.getLastName() + ".vcf";
+				contact.setFileName(fileName);
+			} else {
+				Contact oldContact = getContactByFileName(fileName);
+				if (oldContact != null) {
+					contacts.remove(oldContact);
+				}
+			}
+			contacts.add(contact);
+			saveAsVCard(contact, fileName);
+		} catch (IOException e) {
+			System.err.println("could not save contact: " + contact + " to " + contact.getFileName());
+		}
+	}
+
+	public Contact getContactByFileName(String fileName) {
+		for (Contact contact : contacts) {
+			if (fileName.equals(contact.getFileName())) {
+				return contact;
+			}
+		}
+		return null;
+	}
+
 }

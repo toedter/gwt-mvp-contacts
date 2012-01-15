@@ -34,6 +34,7 @@ public class Contact implements Serializable {
 	private String mobile = "";
 	private String note = "";
 	private String jpegString = "";
+	private String fileName = "";
 
 	public Contact() {
 	}
@@ -178,6 +179,14 @@ public class Contact implements Serializable {
 
 	public String getJpegString() {
 		return jpegString;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	@Override

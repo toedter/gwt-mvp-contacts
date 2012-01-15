@@ -29,6 +29,9 @@ public class ToolBarView extends Composite implements IToolBarView {
 	PushButton saveButton;
 	@UiField
 	PushButton addContactButton;
+	@UiField
+	PushButton deleteContactButton;
+
 	private Presenter presenter;
 
 	interface Binder extends UiBinder<Widget, ToolBarView> {
@@ -41,7 +44,7 @@ public class ToolBarView extends Composite implements IToolBarView {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				presenter.save();
+				presenter.saveContact();
 			}
 		});
 
@@ -50,6 +53,14 @@ public class ToolBarView extends Composite implements IToolBarView {
 			@Override
 			public void onClick(ClickEvent event) {
 				presenter.addContact();
+			}
+		});
+
+		deleteContactButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				presenter.deleteContact();
 			}
 		});
 	}

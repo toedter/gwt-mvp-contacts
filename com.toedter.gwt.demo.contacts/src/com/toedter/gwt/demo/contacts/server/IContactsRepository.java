@@ -22,4 +22,6 @@ public interface IContactsRepository {
 	void addContact(Contact contact);
 
 	void removeContact(Contact contact);
+
+	void saveContact(Contact contact);
 }

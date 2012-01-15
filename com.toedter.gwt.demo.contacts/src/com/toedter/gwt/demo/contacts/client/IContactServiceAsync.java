@@ -19,10 +19,14 @@ import com.toedter.gwt.demo.contacts.shared.Contact;
 
 public interface IContactServiceAsync {
 
-	void getTest(AsyncCallback<String> callback);
-
 	void getAllContacts(AsyncCallback<List<Contact>> callback);
 
 	void getContact(String email, AsyncCallback<Contact> callback);
+
+	void addContact(Contact contact, AsyncCallback<Void> callback);
+
+	void saveContact(Contact contact, AsyncCallback<Void> callback);
+
+	void deleteContact(Contact contact, AsyncCallback<Void> callback);
 
 }

@@ -19,7 +19,9 @@ public interface IToolBarView extends IsWidget, AcceptsOneWidget {
 	public interface Presenter {
 		void addContact();
 
-		void save();
+		void deleteContact();
+
+		void saveContact();
 	}
 
 	void setPresenter(Presenter presenter);

@@ -20,11 +20,17 @@ public interface IContactDetailsView extends IsWidget {
 
 	void setContact(Contact contact);
 
+	Contact getContact();
+
 	void setPresenter(Presenter presenter);
+
+	void clear();
 
 	String getContactEmail();
 
 	public interface Presenter {
 		void goTo(Place place);
+
+		Contact getContact();
 	}
 }

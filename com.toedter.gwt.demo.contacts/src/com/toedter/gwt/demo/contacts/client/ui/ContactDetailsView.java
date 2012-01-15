@@ -35,6 +35,8 @@ public class ContactDetailsView extends Composite implements IContactDetailsView
 	@UiField
 	Image image;
 
+	private Contact contact;
+
 	interface ContactDetailsViewUiBinder extends UiBinder<Widget, ContactDetailsView> {
 	}
 
@@ -44,6 +46,7 @@ public class ContactDetailsView extends Composite implements IContactDetailsView
 
 	@Override
 	public void setContact(Contact contact) {
+		this.contact = contact;
 		if (contact == null) {
 			return;
 		}
@@ -67,4 +70,37 @@ public class ContactDetailsView extends Composite implements IContactDetailsView
 		return email.getText();
 	}
 
+	@Override
+	public void clear() {
+		contact = null;
+		title.setText("");
+		name.setText("");
+		company.setText("");
+		email.setText("");
+
+		image.setUrl("");
+	}
+
+	@Override
+	public Contact getContact() {
+		if (contact == null) {
+			contact = new Contact();
+		}
+
+		contact.setTitle(title.getText());
+		String[] names = name.getText().split(" ");
+		if (names.length > 0) {
+			contact.setFirstName(names[0]);
+		}
+		if (names.length > 1) {
+			contact.setLastName(names[1]);
+		}
+		if (names.length > 2) {
+			contact.setMiddleName(names[1]);
+			contact.setLastName(names[2]);
+		}
+		contact.setCompany(company.getText());
+		contact.setEmail(email.getText());
+		return contact;
+	}
 }

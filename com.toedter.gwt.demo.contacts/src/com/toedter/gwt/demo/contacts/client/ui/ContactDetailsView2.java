@@ -37,9 +37,11 @@ public class ContactDetailsView2 implements IContactDetailsView {
 	private final TextBox emailText;
 	private final TextBox webText;
 	private final Image image;
+	private final Resources resources;
+	private Contact contact;
 
 	public ContactDetailsView2() {
-		Resources resources = GWT.create(Resources.class);
+		resources = GWT.create(Resources.class);
 		colSpan = 2;
 		flexTable = new FlexTable();
 		// flexTable.setStyleName("greyBackground");
@@ -100,6 +102,7 @@ public class ContactDetailsView2 implements IContactDetailsView {
 
 	@Override
 	public void setContact(Contact contact) {
+		this.contact = contact;
 		if (contact == null) {
 			return;
 		}
@@ -126,6 +129,53 @@ public class ContactDetailsView2 implements IContactDetailsView {
 	@Override
 	public String getContactEmail() {
 		return emailText.getText();
+	}
+
+	@Override
+	public void clear() {
+		contact = null;
+		titleText.setText("");
+		nameText.setText("");
+		companyText.setText("");
+		jobTitleText.setText("");
+		streetText.setText("");
+		cityText.setText("");
+		zipText.setText("");
+		countryText.setText("");
+		emailText.setText("");
+		webText.setText("");
+
+		Image image = new Image(resources.dummyContact());
+		flexTable.setWidget(1, 5, image);
+	}
+
+	@Override
+	public Contact getContact() {
+		if (contact == null) {
+			contact = new Contact();
+		}
+
+		contact.setTitle(titleText.getText());
+		String[] names = nameText.getText().split(" ");
+		if (names.length > 0) {
+			contact.setFirstName(names[0]);
+		}
+		if (names.length > 1) {
+			contact.setLastName(names[1]);
+		}
+		if (names.length > 2) {
+			contact.setMiddleName(names[1]);
+			contact.setLastName(names[2]);
+		}
+		contact.setCompany(companyText.getText());
+		contact.setJobTitle(jobTitleText.getText());
+		contact.setStreet(streetText.getText());
+		contact.setCity(cityText.getText());
+		contact.setZip(zipText.getText());
+		contact.setCountry(countryText.getText());
+		contact.setEmail(emailText.getText());
+		contact.setWebPage(webText.getText());
+		return contact;
 	}
 
 }

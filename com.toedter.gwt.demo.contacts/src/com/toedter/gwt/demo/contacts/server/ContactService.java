@@ -27,7 +27,6 @@ public class ContactService extends RemoteServiceServlet implements IContactServ
 		contactManager = new ContactManager();
 	}
 
-	// @Override
 	@Override
 	public List<Contact> getAllContacts() throws IllegalArgumentException {
 		return contactManager.getContacts();
@@ -35,13 +34,22 @@ public class ContactService extends RemoteServiceServlet implements IContactServ
 
 	@Override
 	public Contact getContact(String email) throws IllegalArgumentException {
-		return contactManager.getContact(email);
+		return contactManager.getContactByEmail(email);
 	}
 
 	@Override
-	public String getTest() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return "hello";
+	public void addContact(Contact contact) {
+		contactManager.addContact(contact);
+	}
+
+	@Override
+	public void saveContact(Contact contact) {
+		contactManager.saveContact(contact);
+	}
+
+	@Override
+	public void deleteContact(Contact contact) {
+		contactManager.deleteContact(contact);
 	}
 
 }
