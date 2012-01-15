@@ -51,5 +51,4 @@ public class ContactService extends RemoteServiceServlet implements IContactServ
 	public void deleteContact(Contact contact) {
 		contactManager.deleteContact(contact);
 	}
-
 }

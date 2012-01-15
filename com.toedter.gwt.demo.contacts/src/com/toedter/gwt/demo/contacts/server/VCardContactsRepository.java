@@ -45,14 +45,21 @@ public class VCardContactsRepository implements IContactsRepository {
 	}
 
 	private File[] getContacts() throws Exception {
-		File directory = new File("vcards");
-		System.out.println("VCardContactsRepository.getContacts() from" + directory.getCanonicalPath());
+		String dir = getVCardsDir();
+		File directory = new File(dir);
+		System.out.println("VCardContactsRepository loading vcards from" + directory.getCanonicalPath());
 		return directory.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
 				return name.endsWith(".vcf"); //$NON-NLS-1$
 			}
 		});
+	}
+
+	private String getVCardsDir() {
+		String path = getClass().getResource("").getPath();
+		path = path.substring(1, path.indexOf("WEB-INF")) + "vcards";
+		return path;
 	}
 
 	@Override
@@ -257,7 +264,8 @@ public class VCardContactsRepository implements IContactsRepository {
 		try {
 			String fileName = contact.getFileName();
 			if (fileName == null || fileName.trim().length() == 0) {
-				fileName = "vcards/" + contact.getFirstName() + " " + contact.getLastName() + ".vcf";
+				String dir = getVCardsDir();
+				fileName = dir + "/" + contact.getFirstName() + " " + contact.getLastName() + ".vcf";
 				contact.setFileName(fileName);
 			} else {
 				Contact oldContact = getContactByFileName(fileName);
